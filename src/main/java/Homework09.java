@@ -7,6 +7,12 @@
  *
  * @author MoaathAlrajab
  */
+
+/* 
+NOTE: I moved the DoublyLinkedList.java and DoublyLinkedListDemoApp.java files
+to this file.
+*/
+
 public class Homework09 {
     
     // ToDo 01:  Write an algorithm to solve the following problem
@@ -30,5 +36,40 @@ What is the value of the first triangle number to have over one hundred divisors
     
     */
     
+    public static int triNum(int n) {
+        int total = 0; // Used to make triangle numbers
+        int divisors = 0; // Amount of total's divisors
+        DoublyLinkedList divide = new DoublyLinkedList(); // Used to track total's divisors
+        for(int i = 1; i<=n;i++) { // Making a triangle number
+            total = total + i; // Next triangle number
+        }
+        for(int j = 1; j<=total;j++) { // Counting the divisors of the triangle number
+            if(total % j == 0) { // Determines if j is a divisor of total
+                Node m = new Node(j); // Add a divisor to divide
+                m.data = j; // Assign m.data j's value
+                divide.append(m); // Add the divisor to divide
+                m = m.next; // Go to the next node
+            }
+        }
+        divisors = divide.listSize(divide); // Determines divide's size and assigns divisors that value
+        if(divisors > 100) { // Checks to see if total has over 100 divisors
+            System.out.println("Number: " + total); // First triangle number to have over 100 divisors
+            System.out.println("Divisors: ");
+            divide.printList(); // Print out total's divisors
+            System.out.println(total + " has over 100 divisors."); // Indicates that the triangle number has over 100 divisors
+        }
+        return divisors; // Returns the number of total's divisors
+    }
+    
+    public static void main(String[] args) {
+        int n = 1;
+        int triangle;
+        triangle = triNum(n);
+        while(triangle < 101) { // n increases until triangle is over 100
+                n++;
+                triangle = triNum(n);
+        }
+        System.out.println("It has " + triangle + " divisors."); // Prints out the amount of divisors
+    }
     
 }
